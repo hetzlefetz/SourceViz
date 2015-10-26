@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
@@ -22,6 +23,9 @@ public abstract class ASourceFile {
 	public ASourceFile(Path aPath, ALanguage aLanguage){
 		this.m_Path = aPath;
 		this.m_Language = aLanguage;
+	}
+	public ASourceFile(String aPath) {
+		this.m_Path = Paths.get(aPath);
 	}
 	/**
 	 * Reads  the content of a File based on the Path of the File, the path of the File object is set in the constructor
@@ -50,14 +54,21 @@ public abstract class ASourceFile {
 		return defensiveCopy;
 	}
 
+
+	public String getFilename(){
+		return m_Path.getFileName().toString();
+				
+	}
+	
 	/**
 	 * This function is a simple approach to count the  Lines of Code in a given source file, override it to get a more accurate result. 
 	 * @return The number of Lines in a File
 	 */
-	int GetLoC(){
+	public int GetLoC(){
 		if(m_FileContents== null){
 			throw new Error("File wasn't loaded yet!");
 		}
+		
 		return m_FileContents.size();
 	}
 }

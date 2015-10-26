@@ -14,12 +14,12 @@ public class CSharpLanguage extends ALanguage {
 		m_BuiltinTypes = new ArrayList<AType>();
 		m_BuiltinTypes.add(new CSharpBoolean());
 		m_DefaultFileEndings = new ArrayList<String>();
-		m_DefaultFileEndings.add("*.cs");
+		m_DefaultFileEndings.add(".cs");
 	}
 	
 	public void SetCustomFileEndings(ArrayList<String> NewFileEndings){
-		this.m_DefaultFileEndings.clear();
-		this.m_DefaultFileEndings.addAll(NewFileEndings);
+		this.getDefaultFileEndings().clear();
+		this.getDefaultFileEndings().addAll(NewFileEndings);
 	}
 
 	

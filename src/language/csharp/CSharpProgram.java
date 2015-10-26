@@ -22,33 +22,28 @@ public class CSharpProgram extends AProgram {
 		m_Description = aDescription;
 		m_SourceFiles = new ArrayList<ASourceFile>();
 	}
-	
-	
-
-	@Override
-	protected void ScanFiles(boolean recursive) {
-	
-		
-		
-	}
-
-
 
 	@Override
 	public void ScanFiles(String aPath, boolean recursive) {
-
-		File f = new File(aPath);
-		for (String aFile : f.list(m_Language.GetFileFilter())) {
-			m_SourceFiles.add(new CSharpSourcefile(Paths.get(aFile), (CSharpLanguage) m_Language));
-		}
-		if(f.isDirectory()){
-			
-		}
 		
-
+		File root = new File(aPath);
+		File[] list = root.listFiles();
 		
+		if(list == null){
+			return ;
+		}else{
+			for(File f :list){
+				if(f.isDirectory() && recursive){
+					ScanFiles(f.getAbsolutePath(), recursive);
+				}else{
+					for(String s : m_Language.getDefaultFileEndings()){
+						if(f.getName().endsWith(s)){
+							getSourceFiles().add(new CSharpSourcefile(f.getAbsolutePath()));
+						}
+					}
+				}
+			}
+		}
 		
 	}
-	
-
 }
