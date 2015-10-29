@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import language.AClass;
 import language.ASourceFile;
 import language.csharp.CSharpProgram;
 
@@ -26,7 +27,12 @@ public class Tester {
 			try {
 				
 				s.ReadFile();
+				s.ParseForClasses();
 				System.out.println(String.format("File %s has approx. %d lines of code", s.getFilename(), s.GetLoC()));
+				for(AClass c : s.GetClasses()){
+					System.out.println( "Class : " + c.GetClassName());
+				}
+				
 				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

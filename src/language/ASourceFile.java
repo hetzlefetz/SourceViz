@@ -20,6 +20,7 @@ public abstract class ASourceFile {
 	protected int LoC;
 
 
+
 	public ASourceFile(Path aPath, ALanguage aLanguage){
 		this.m_Path = aPath;
 		this.m_Language = aLanguage;
@@ -55,11 +56,16 @@ public abstract class ASourceFile {
 	}
 
 
+	public abstract void ParseForClasses();
+
+	public ArrayList<AClass> GetClasses(){
+		return this.m_Classes;
+	}
 	public String getFilename(){
 		return m_Path.getFileName().toString();
-				
+
 	}
-	
+
 	/**
 	 * This function is a simple approach to count the  Lines of Code in a given source file, override it to get a more accurate result. 
 	 * @return The number of Lines in a File
@@ -68,7 +74,7 @@ public abstract class ASourceFile {
 		if(m_FileContents== null){
 			throw new Error("File wasn't loaded yet!");
 		}
-		
+
 		return m_FileContents.size();
 	}
 }
