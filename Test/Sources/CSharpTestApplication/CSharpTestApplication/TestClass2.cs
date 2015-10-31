@@ -8,4 +8,9 @@ namespace CSharpTestApplication
     class TestClassB
     {
     }
+
+    class TestClassC
+    {
+
+    }
 }

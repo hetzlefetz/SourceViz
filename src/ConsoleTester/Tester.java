@@ -8,7 +8,9 @@ import java.nio.file.Path;
 
 import language.AClass;
 import language.ASourceFile;
+import language.csharp.CSharpClass;
 import language.csharp.CSharpProgram;
+import language.csharp.CSharpSourcefile;
 
 public class Tester {
 
@@ -27,9 +29,8 @@ public class Tester {
 			try {
 				
 				s.ReadFile();
-				s.ParseForClasses();
 				System.out.println(String.format("File %s has approx. %d lines of code", s.getFilename(), s.GetLoC()));
-				for(AClass c : s.GetClasses()){
+				for(AClass c : ((CSharpSourcefile) s).GetClassesInSourceFile()){
 					System.out.println( "Class : " + c.GetClassName());
 				}
 				

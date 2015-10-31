@@ -27,6 +27,7 @@ public abstract class ASourceFile {
 	}
 	public ASourceFile(String aPath) {
 		this.m_Path = Paths.get(aPath);
+		
 	}
 	/**
 	 * Reads  the content of a File based on the Path of the File, the path of the File object is set in the constructor
@@ -55,12 +56,6 @@ public abstract class ASourceFile {
 		return defensiveCopy;
 	}
 
-
-	public abstract void ParseForClasses();
-
-	public ArrayList<AClass> GetClasses(){
-		return this.m_Classes;
-	}
 	public String getFilename(){
 		return m_Path.getFileName().toString();
 

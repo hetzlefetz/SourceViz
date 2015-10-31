@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import language.AClass;
 import language.ASourceFile;
+import language.IClassable;
 
-public class CSharpSourcefile extends ASourceFile{
+public class CSharpSourcefile extends ASourceFile implements IClassable{
 
 	public CSharpSourcefile(String aPath) {
 		super(aPath);
+		ParseForClasses();
 	}
 
 	@Override
@@ -19,20 +21,43 @@ public class CSharpSourcefile extends ASourceFile{
 		}
 		for(String line : m_FileContents){
 			if(line.contains("class ")){
-				int idxOfClass = line.indexOf("class ");
-				int idxOfClassNameStart = line.indexOf(" ",idxOfClass+5);
-				int idxOfClassNameEnd = line.indexOf(" ",idxOfClassNameStart+1);
+				String tmpLine = line .trim();
+				int idxOfClass = tmpLine .indexOf("class ");
+				int idxOfClassNameStart = tmpLine .indexOf(" ",idxOfClass+5);
+				int idxOfClassNameEnd = tmpLine .indexOf(" ",idxOfClassNameStart+1);
 				if(idxOfClassNameEnd == -1){
-					idxOfClassNameEnd = line.length();
+					idxOfClassNameEnd = tmpLine .length();
 				}
+
+
+
 				CSharpClass tmp = new CSharpClass();
-				tmp.SetClassName(line.substring(idxOfClassNameStart+1,idxOfClassNameEnd ));
+				tmp.SetClassName(tmpLine .substring(idxOfClassNameStart+1,idxOfClassNameEnd ));
 				tmp.SetSourceFileName(this.getFilename());
-				
+				if(idxOfClass > 0){
+					//Class has modifiers ?
+				}
 				this.m_Classes.add(tmp);
 
 			}
 		}
+	}
+
+	@Override
+	public ArrayList<String> GetClassNames() {
+		ArrayList<String> retval = new ArrayList<String>();
+		if(m_Classes== null){
+			return retval;
+		}
+		for(AClass a : m_Classes){
+			retval.add(a.GetClassName());
+		}
+		return retval;
+	}
+
+	@Override
+	public ArrayList<AClass> GetClassesInSourceFile() {
+		return m_Classes;
 	}
 
 

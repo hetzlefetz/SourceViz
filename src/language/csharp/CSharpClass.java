@@ -3,18 +3,24 @@ package language.csharp;
 import java.util.ArrayList;
 
 import language.AClass;
+import language.AnAccesModifier;
+import language.IAccessModifieable;
 
-public class CSharpClass extends AClass {
+public class CSharpClass extends AClass implements IAccessModifieable {
 
-	static ArrayList<CSharpClass> GetClasses(ArrayList<String> FileContents){
-		if(FileContents.size() == 0){
-			return new ArrayList<CSharpClass>();
-		}
+	private ArrayList<AnAccesModifier> m_AccessModifiers;
+	
+	public CSharpClass(String s) {
+		super(s);
+		m_AccessModifiers = ParseForAccessModifiers();
 		
-		ArrayList<CSharpClass> tmp = new ArrayList<CSharpClass>();
-		
-		
-		return tmp;
-		
+	}
+
+	
+
+	@Override
+	public ArrayList<AnAccesModifier> ParseForAccessModifiers() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
